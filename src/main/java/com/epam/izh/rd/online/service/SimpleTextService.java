@@ -13,7 +13,16 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public String removeString(String base, String remove) {
-        return null; //TODO
+        StringBuilder sb1 = new StringBuilder(base);
+        StringBuilder sb2 = new StringBuilder(remove);
+
+        while (sb1.indexOf(remove)>0) {
+            sb1 = sb1.delete(sb1.indexOf(remove),sb1.indexOf(remove)+sb2.length());
+
+        }
+
+
+        return sb1.toString();
     }
 
     /**
@@ -24,7 +33,7 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public boolean isQuestionString(String text) {
-        return false; //TODO
+        return text.endsWith("?");
     }
 
     /**
@@ -35,7 +44,11 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public String concatenate(String... elements) {
-        return null; //TODO
+        StringBuilder sb1 = new StringBuilder(elements[0]);
+        for(int i = 1; i < elements.length; i++) {
+            sb1.append(elements[i]);
+        }
+        return sb1.toString();
     }
 
     /**
@@ -47,7 +60,14 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public String toJumpCase(String text) {
-        return null; //TODO
+        StringBuilder sb1 = new StringBuilder(text);
+        for(int i = 0; i < sb1.length(); i+=2) {
+            sb1.setCharAt(i, Character.toLowerCase(sb1.charAt(i)));
+        }
+        for(int i = 1; i < sb1.length(); i+=2) {
+            sb1.setCharAt(i, Character.toUpperCase(sb1.charAt(i)));
+        }
+        return sb1.toString();
     }
 
     /**
@@ -59,6 +79,13 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public boolean isPalindrome(String string) {
-       return false; //TODO
+        if (string.equals("")){
+            return false;
+        }
+        String workCopy = string.replaceAll(" ","");
+        StringBuffer reversCopy = new StringBuffer(new StringBuffer(workCopy).reverse());
+        String str = reversCopy.toString();
+        return str.equalsIgnoreCase(workCopy);
+
     }
 }

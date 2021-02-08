@@ -20,11 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FileRepositoryTest {
 
-  private static final String TEST_DIR_COUNT_PATH = "testDirCountFiles";
-  private static final String TEST_DIR_CREATE_PATH = "testDirCreateFile";
+  private static final String TEST_DIR_COUNT_PATH = "C:/java-data-handling-template/src/main/resources/testDirCountFiles";
+  private static final String TEST_DIR_CREATE_PATH = "C:/java-data-handling-template/src/main/resources/testDirCreateFile";
   private static final String TEST_FILE_TO_CREATE = "newFile.txt";
-  private static final String SOURCE_FILE = "fileRepository/source/TestFileToCopy.txt";
-  private static final String COPY_FILE = "fileRepository/copy/TestFileToCopy.txt";
+  private static final String SOURCE_FILE = "C:/java-data-handling-template/fileRepository/source/TestFileToCopy.txt";
+  private static final String COPY_FILE = "C:/java-data-handling-template/fileRepository/copy/TestFileToCopy.txt";
 
   private static FileRepository fileRepository;
 
@@ -55,7 +55,7 @@ public class FileRepositoryTest {
 
   @Test
   @DisplayName("Тест метода FileRepository.copyTXTFiles(String from, String to)")
-  void testCopyTXTFiles() {
+  void testCopyTXTFiles() throws IOException {
     final File emptyFile = getFile(COPY_FILE);
     assertEquals("", emptyFile.getName());
     fileRepository.copyTXTFiles(SOURCE_FILE, COPY_FILE);
@@ -73,7 +73,7 @@ public class FileRepositoryTest {
 
   @Test
   @DisplayName("Тест метода FileRepository.createFile(String path)")
-  void testCreateFile() {
+  void testCreateFile() throws IOException {
     fileRepository.createFile(TEST_DIR_CREATE_PATH, TEST_FILE_TO_CREATE);
 
     assertTrue(getFile(TEST_DIR_CREATE_PATH + "/" + TEST_FILE_TO_CREATE).exists());
@@ -81,7 +81,7 @@ public class FileRepositoryTest {
 
   @Test
   @DisplayName("Тест метода FileRepository.readFileFromResources(String fileName)")
-  void testReadFileFromResources() {
+  void testReadFileFromResources() throws IOException {
     assertEquals("Ya-hoo!", fileRepository.readFileFromResources("readme.txt"));
   }
 
@@ -98,8 +98,10 @@ public class FileRepositoryTest {
   }
 
   private File getFile(String path) {
+    File file = new File(path);
     ClassLoader classLoader = getClass().getClassLoader();
-    URL resource = classLoader.getResource(path);
+    URL resource = classLoader.getResource(String.valueOf(file));
+
     if (resource != null) {
       return new File(resource.getFile());
     }
