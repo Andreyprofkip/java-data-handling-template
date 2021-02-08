@@ -98,8 +98,10 @@ public class FileRepositoryTest {
   }
 
   private File getFile(String path) {
+    File file = new File(path);
     ClassLoader classLoader = getClass().getClassLoader();
-    URL resource = classLoader.getResource(path);
+    URL resource = classLoader.getResource(String.valueOf(file));
+
     if (resource != null) {
       return new File(resource.getFile());
     }

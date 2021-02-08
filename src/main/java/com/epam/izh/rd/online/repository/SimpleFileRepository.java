@@ -17,7 +17,7 @@ public class SimpleFileRepository implements FileRepository {
      */
     @Override
     public long countFilesInDirectory(String path) {
-        //String absoluteFilePath = "C:/java-data-handling-template/src/main/resources/"+path;
+
             long filesThisDir=0;
             File f = new File(path);
             File[] files = f.listFiles();
@@ -87,7 +87,7 @@ public class SimpleFileRepository implements FileRepository {
      */
     @Override
     public boolean createFile(String path, String name) throws IOException {
-        File file = new File(path+"/"+name);
+        File file = new File(path+"./"+name);
         Path dir = Paths.get(file.getParent());
         if (!Files.exists(dir)) {
             Files.createDirectory(dir);

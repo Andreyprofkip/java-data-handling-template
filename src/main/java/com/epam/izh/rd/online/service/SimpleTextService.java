@@ -79,6 +79,9 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public boolean isPalindrome(String string) {
+        if (string.equals("")){
+            return false;
+        }
         String workCopy = string.replaceAll(" ","");
         StringBuffer reversCopy = new StringBuffer(new StringBuffer(workCopy).reverse());
         String str = reversCopy.toString();
